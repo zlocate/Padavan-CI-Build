@@ -26,9 +26,9 @@ jobs:
         ./build_toolchain.sh
     - name: Ready for Build firmware - Padavan
       run: |
-        cd padavan-ng-master
-        rm ./trunk/.config
-        cp ./trunk/configs/templates/xiaomi/mi-nano.config ./.config
+        cd padavan-ng-master/trunk
+        rm ./.config
+        cp ./configs/templates/xiaomi/mi-nano.config ./.config
         ./clear_tree.sh 
         sed -i 's/make/make -j/g' ./trunk/build_firmware.sh
     - name: Build - Padavan
