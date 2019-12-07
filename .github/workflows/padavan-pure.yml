@@ -21,6 +21,7 @@ jobs:
     - name: Pre Build toolchain - Crosstool-NG
       run: |
         cd padavan-ng-master/toolchain
+        sed -i 's/make/make -j/g' ./build_toolchain.sh
         ./clean_sources.sh
         ./build_toolchain.sh
     - name: Ready for Build firmware - Padavan
@@ -29,6 +30,7 @@ jobs:
         rm ./trunk/.config
         cp ./trunk/configs/templates/xiaomi/mi-nano.config ./.config
         ./clear_tree.sh 
+        sed -i 's/make/make -j/g' ./trunk/build_firmware.sh
     - name: Build - Padavan
       run: |
         cd padavan-ng-master
