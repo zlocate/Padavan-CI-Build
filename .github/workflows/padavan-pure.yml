@@ -33,7 +33,7 @@ jobs:
         sed -i 's/make/make -j/g' ./trunk/build_firmware.sh
     - name: Build - Padavan
       run: |
-        cd padavan-ng-master
+        cd padavan-ng-master/trunk
         ./build_firmware.sh
     - name: Release - push to release file
       uses: softprops/action-gh-release@v1
