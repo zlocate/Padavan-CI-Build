@@ -6,7 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     env:
-      VERSION: 18.06.5
+      VERSION: latest
+      tag: xiaomi
       Target: mi-nano 
       URL: https://gitlab.com/padavan-ng/padavan-ng/-/archive/master/padavan-ng-master.tar.gz
     steps:
@@ -29,7 +30,7 @@ jobs:
         cd padavan-ng-master/trunk
         ./clear_tree.sh 
         rm ./.config
-        cp ./configs/templates/xiaomi/mi-nano.config ./.config
+        cp ./configs/templates/$tag/$target.config ./.config
         sed -i 's/make/make -j/g' ./build_firmware.sh
     - name: Build - Padavan
       run: |
