@@ -1,0 +1,48 @@
+name: Padavan MI-NANO CI
+on:
+  release:
+    types: [created]
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    env:
+      VERSION: 18.06.5
+      Target: mi-nano 
+      URL: https://gitlab.com/padavan-ng/padavan-ng/-/archive/master/padavan-ng-master.tar.gz
+    steps:
+    - name: Checkout - clone repository
+      uses: actions/checkout@v1
+    - name: Install - system build dependencies
+      run: sudo apt install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd cpio git python-docutils gettext automake autopoint texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev
+    - name: Download - openwrt source download
+      run: |
+        wget $URL
+        tar -zxf padavan-ng-master.tar.gz
+    - name: Pre Build toolchain - Crosstool-NG
+      run: |
+        cd padavan-ng-master/toolchain
+        ./clean_sources.sh
+        ./build_toolchain.sh
+    - name: Ready for Build firmware - Padavan
+      run: |
+        cd padavan-ng-master
+        rm .config
+        cp ./trunk/configs/templates/xiaomi/mi-nano.config ./.config
+        ./clear_tree.sh 
+    - name: Build - Padavan
+      run: |
+        cd padavan-ng-master
+        ./build_firmware.sh
+    - name: Release - push to release file
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: padavan-ng-master/trunk/images/*
+      env:
+        GITHUB_TOKEN: ${{ secrets.RELEASES_DEPLOY_TOKEN }}
+    - name: Upload - push to artifact file
+      uses: actions/upload-artifact@v1
+      with:
+        name: padavan-MI-NANO
+        path: padavan-ng-master/trunk/images/
+
