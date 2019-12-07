@@ -26,7 +26,7 @@ jobs:
     - name: Ready for Build firmware - Padavan
       run: |
         cd padavan-ng-master
-        rm .config
+        rm ./trunk/.config
         cp ./trunk/configs/templates/xiaomi/mi-nano.config ./.config
         ./clear_tree.sh 
     - name: Build - Padavan
