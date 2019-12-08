@@ -42,7 +42,7 @@ jobs:
       with:
         files: rt-n56u/trunk/images/*
       env:
-        GITHUB_TOKEN: ${{ secrets.RELEASES_DEPLOY_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE }}
     - name: Upload - push to artifact file
       uses: actions/upload-artifact@v1
       with:
