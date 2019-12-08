@@ -1,4 +1,4 @@
-name: Padavan MI-NANO CI
+name: Padavan K2P CI
 on:
   release:
     types: [created]
@@ -9,6 +9,7 @@ jobs:
       VERSION: latest
       tag: Phicomm
       Target: K2P
+      Branch:  Standard
       URL: https://github.com/hanwckf/rt-n56u
     steps:
     - name: Checkout - clone repository
