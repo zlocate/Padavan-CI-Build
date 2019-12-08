@@ -22,7 +22,7 @@ jobs:
       run: |
         cd rt-n56u
         c_dir=$(pwd)
-        sed -i 's/\/opt/$c_dir/g' -r .
+        sed -i 's/\/opt/$c_dir/g' -r *
         cd toolchain-mipsel
         ./clean_toolchain
         ./build_toolchain
