@@ -1,4 +1,4 @@
-name: Padavan K2P CI
+name: Padavan NEWIFI3 CI
 on:
   release:
     types: [created]
