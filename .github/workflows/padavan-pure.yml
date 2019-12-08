@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-18.04
     env:
       VERSION: latest
-      tag: xiaomi
-      Target: mi-nano 
-      URL: https://gitlab.com/padavan-ng/padavan-ng/-/archive/master/padavan-ng-master.tar.gz
+      tag: Phicomm
+      Target: K2P
+      URL: https://github.com/hanwckf/rt-n56u
     steps:
     - name: Checkout - clone repository
       uses: actions/checkout@v1
@@ -17,35 +17,33 @@ jobs:
       run: sudo apt install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd cpio git python-docutils gettext automake autopoint texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev
     - name: Download - openwrt source download
       run: |
-        wget $URL
-        tar -zxf padavan-ng-master.tar.gz
+        git clone --depth=1 $URL
     - name: Pre Build toolchain - Crosstool-NG
       run: |
-        cd padavan-ng-master/toolchain
-        sed -i 's/make/make -j/g' ./build_toolchain.sh
-        ./clean_sources.sh
-        ./build_toolchain.sh
+        cd rt-n56u
+        c_dir=$(pwd)
+        sed -i 's/\/opt/$c_dir/g' -r .
+        cd toolchain-mipsel
+        ./clean_toolchain
+        ./build_toolchain
     - name: Ready for Build firmware - Padavan
       run: |
-        cd padavan-ng-master/trunk
-        ./clear_tree.sh 
-        rm ./.config
-        cp ./configs/templates/$tag/$target.config ./.config
-        sed -i 's/make/make -j/g' ./build_firmware.sh
+        cd rt-n56u/trunk
+        ./clear_tree
     - name: Build - Padavan
       run: |
-        cd padavan-ng-master/trunk
-        ./build_firmware.sh
+        cd rt-n56u/trunk
+        ./build_firmware_modify K2P
     - name: Release - push to release file
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        files: padavan-ng-master/trunk/images/*
+        files: rt-n56u/trunk/images/*
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASES_DEPLOY_TOKEN }}
     - name: Upload - push to artifact file
       uses: actions/upload-artifact@v1
       with:
-        name: padavan-MI-NANO
-        path: padavan-ng-master/trunk/images/
+        name: padavan-K2P
+        path: rt-n56u/trunk/images/
 
