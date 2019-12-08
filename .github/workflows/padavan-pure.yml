@@ -22,7 +22,8 @@ jobs:
       run: |
         cd rt-n56u
         c_dir=$(pwd)
-        sed -i 's/\/opt/$c_dir/g' -r *
+        echo 'Current Working Dir:'$c_dir
+        sed -i 's/\/opt/$c_dir/g' `grep . -rl`
         cd toolchain-mipsel
         ./clean_toolchain
         ./build_toolchain
