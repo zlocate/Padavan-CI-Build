@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-18.04
     env:
       VERSION: latest
-      Tag: Xiaomi
+      Tag: XiaoMi
       Target: MI-NANO
       Branch:  Standard
       URL: https://github.com/hanwckf/rt-n56u
@@ -35,10 +35,6 @@ jobs:
       run: |
         cd rt-n56u/trunk
         ./clear_tree
-        cd configs
-        mkdir boards/MI-NANO
-        cp ../../../MI-NANO/board/* boards/MI-NANO
-        cp ../../../MI-NANO/template/mi-nano.config templates/
     - name: Build - Padavan
       run: |
         cd rt-n56u/trunk
@@ -53,6 +49,6 @@ jobs:
     - name: Upload - push to artifact file
       uses: actions/upload-artifact@v1
       with:
-        name: Padavan-K2P
+        name: Padavan-MI-NANO
         path: rt-n56u/trunk/images/
 
