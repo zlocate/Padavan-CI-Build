@@ -10,7 +10,7 @@ jobs:
       Tag: Lenovo
       Target: NEWIFI3
       Branch:  Standard
-      URL: https://github.com/hanwckf/rt-n56u
+      URL: https://github.com/SuzukiHonoka/rt-n56u
     steps:
     - name: Checkout - clone repository
       uses: actions/checkout@v1
