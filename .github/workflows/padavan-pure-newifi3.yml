@@ -1,6 +1,10 @@
 name: Padavan NEWIFI3 CI
 
 on:
+  push:
+    branches: 
+      - master
+      - development
   release:
     types: [created]
 jobs:
