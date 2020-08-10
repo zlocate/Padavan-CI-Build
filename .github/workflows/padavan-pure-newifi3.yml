@@ -17,7 +17,7 @@ jobs:
     - name: Checkout - clone repository
       uses: actions/checkout@v1
     - name: Install - system build dependencies
-      run: sudo apt install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd cpio git python-docutils gettext automake autopoint texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev
+      run: sudo apt install -y unzip libtool-bin curl cmake gperf gawk flex bison nano xxd cpio git python-docutils gettext automake autopoint texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev
     - name: Download - RT-N56U source download
       run: |
         git clone --depth=1 $URL
