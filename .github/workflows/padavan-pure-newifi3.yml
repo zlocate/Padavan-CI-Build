@@ -38,7 +38,7 @@ jobs:
     - name: Build - Padavan
       run: |
         cd rt-n56u/trunk
-        ./build_firmware_modify $Target
+        fakeroot ./build_firmware_modify $Target
     - name: Release - push to release file
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
